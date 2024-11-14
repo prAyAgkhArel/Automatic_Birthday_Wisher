@@ -1,11 +1,10 @@
 
-import datetime
-import pandas
-import smtplib
+import datetime #to get hold of time
+import os    # to access from system
+import pandas  # to handle csv file
+import smtplib # to connect with smtp
 import random
 
-my_email = "your_email"
-password = "Your password"
 
 #getting todays date
 today = datetime.datetime.now()
@@ -31,10 +30,10 @@ with open(f"letter_templates/letter_{random.randint(1,3)}.txt", "r") as letter:
 #logging in to the sender email
 connection = smtplib.SMTP("smtp.gmail.com")
 connection.starttls()
-connection.login(user= my_email, password= password)
+connection.login(user=os.getenv("EMAIL"), password=os.getenv("EMAIL_PASSWORD"))
 
 #sending letter to the email address of the friend whose birthday is today
-connection.sendmail(from_addr=my_email, to_addrs=email, msg=f"Subject:Birthday Wish\n\n{txt}")
+connection.sendmail(from_addr= os.getenv("EMAIL"), to_addrs=email, msg=f"Subject:Birthday Wish\n\n{txt}")
 
 
 
